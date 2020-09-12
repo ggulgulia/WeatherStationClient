@@ -1,24 +1,27 @@
 #include <gtest/gtest.h>
+#include "../../headers/TemperatureSensor.h"
+
+using namespace WS;
 
 class ReadTemperature : public testing::Test{
     public:
+        double temp;
+        std::unique_ptr<TemperatureSensor> temp_sensor_;
 
-        ReadTemperature(){
-        temp = 0;
+        ReadTemperature(): temp{0}, 
+                         temp_sensor_{std::make_unique<TemperatureSensor>()}{
 
         }
-        int temp;
+
         ~ReadTemperature(){
 
         }
-
-    private:
-
 };
 
 TEST_F(ReadTemperature, initialize){
-    ASSERT_EQ(1,1);
+
 }
+
 
 int main(int argc, char** argv){
     testing::InitGoogleTest(&argc, argv);

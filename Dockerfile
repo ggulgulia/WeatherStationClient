@@ -1,6 +1,8 @@
 FROM resin/rpi-raspbian:latest
 ENTRYPOINT []
 
+COPY . .
+
 RUN apt-get update && \
     apt-get -qy install curl \
                 build-essential python \
@@ -11,5 +13,4 @@ RUN curl -O \
 RUN tar -xvf node-*.tar.gz -C /usr/local \
   --strip-components=1
 
-CMD ["node"]
-
+RUN pip install rpi.gpio

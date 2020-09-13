@@ -12,7 +12,14 @@ Run the following commands on raspberry pi
 
 ### Step 3: Set up hardware
 * Look at the images provides to attach temperature sensor to RPI 
-* Components: ![Optional Text](Images/setup1)
+* All Components for the project: 
+![](Images/setup1.jpg)
+* Setup  (connected components)
+![](Images/setup2.jpg)
+* Close up of sensor connection: front view
+![](Images/setup3.jpg)
+* Close up of sensor connection: rear view
+![](Images/setup4.jpg)
 
 ### Step 4: Get the data from the device files
 Run the following commands

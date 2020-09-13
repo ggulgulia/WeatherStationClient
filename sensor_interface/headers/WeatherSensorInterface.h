@@ -3,18 +3,17 @@
 
 #include <iostream>
 namespace WS{
-enum class state{on, off};
+enum class state{off, on, ground_disconnected, unknown};
 
-    class WeatherStationInterface{
+    class WeatherSensorInterface{
         public:
-            WeatherStationInterface() = default;
-            ~WeatherStationInterface() = default;
-            WeatherStationInterface(const WeatherStationInterface&) = delete;
-            WeatherStationInterface& operator=(const WeatherStationInterface&) = delete;
+            WeatherSensorInterface() = default;
+            ~WeatherSensorInterface() = default;
+            WeatherSensorInterface(const WeatherSensorInterface&) = delete;
+            WeatherSensorInterface& operator=(const WeatherSensorInterface&) = delete;
             
-            virtual state is_on() = 0;
+            virtual state is_on() const noexcept = 0;
         
-
     };
 }
 #endif

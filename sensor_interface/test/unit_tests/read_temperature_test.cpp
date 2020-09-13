@@ -19,8 +19,9 @@ class ReadTemperature : public testing::Test{
 };
 
 TEST_F(ReadTemperature, initialize){
-
-}
+    temp_sensor_->update_temperature_sensor_power_status();
+    ASSERT_EQ(temp_sensor_->is_on(), state::on);
+} 
 
 
 int main(int argc, char** argv){

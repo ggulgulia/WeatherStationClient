@@ -64,7 +64,7 @@ namespace WS{
                     else{
                         std::cout << "Successfully opened the temperature file\n";
                         while (std::getline(temperature_file,line)){
-                          temperature = std::stof(line);
+                          temperature = std::stof(line)*0.001;
                         }
                         temperature_file.close();
                     }

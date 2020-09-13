@@ -25,20 +25,20 @@ namespace WS{
             void update_temperature_sensor_power_status() noexcept(false) {
                 std::string line, result;
                 state sensor_state;
-                std::ifstream myfile;
+                std::ifstream power_status_file;
                 try{
-                    myfile.open(power_status_filepath);
-                    if(!myfile){
+                    power_status_file.open(power_status_filepath);
+                    if(!power_status_file){
                         std::stringstream str{power_status_filepath};
                         str << "cannot open file: " << power_status_filepath << "\n";
                         throw std::runtime_error(str.str()); 
                     }
                     else{
                         std::cout << "Successfully opened the power status file\n";
-                        while (std::getline(myfile,line)){
+                        while (std::getline(power_status_file,line)){
                           result = line;
                         }
-                        myfile.close();
+                        power_status_file.close();
                     }
                 }
                 catch(std::exception& e){
@@ -48,6 +48,31 @@ namespace WS{
                 auto pair = state_map.find(result);
                 sensor_state = pair != state_map.end()? pair->second : state::unknown;
                 state_ = sensor_state;
+            }
+
+            float check_temperature() noexcept(false) {
+                std::string line;
+                float temperature;
+                std::ifstream temperature_file;
+                try{
+                    temperature_file.open(temperature_filepath);
+                    if(!temperature_file){
+                        std::stringstream str{temperature_filepath};
+                        str << "cannot open file: " << temperature_filepath << "\n";
+                        throw std::runtime_error(str.str()); 
+                    }
+                    else{
+                        std::cout << "Successfully opened the temperature file\n";
+                        while (std::getline(temperature_file,line)){
+                          temperature = std::stof(line);
+                        }
+                        temperature_file.close();
+                    }
+                }
+                catch(std::exception& e){
+                    std::cerr << e.what() << "\n";
+                }
+                return temperature;
             }
             
         private:

@@ -3,9 +3,9 @@
 
 #include <string>
 
-std::string sendor_filepath{"~/home/gajendra/sensordata"};
-std::string power_status_filepath{"../../../../../sensordata/ext_power"};
-std::string temperature_filepath{"~/home/gajendra/sensordata/temperature"};
+const std::string sensor_filepath{"~/home/gajendra/sensordata"};
+const std::string power_status_filepath{"../../../../../sensordata/ext_power"};
+const std::string temperature_filepath{"../../../../../sensordata/temperature"};
 
 
 

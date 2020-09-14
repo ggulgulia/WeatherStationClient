@@ -1,16 +1,14 @@
-FROM resin/rpi-raspbian:latest
+FROM resin/rpi-raspbian
 ENTRYPOINT []
-
+WORKDIR /home/weatherStation
 COPY . .
 
 RUN apt-get update && \
     apt-get -qy install curl \
-                build-essential python \
-                ca-certificates
-WORKDIR /root/
-RUN curl -O \
-  https://nodejs.org/dist/v4.5.0/node-v4.5.0-linux-armv6l.tar.gz
-RUN tar -xvf node-*.tar.gz -C /usr/local \
-  --strip-components=1
-
-RUN pip install rpi.gpio
+                build-essential python3-dev \
+                ca-certificates \
+		python3-pip \
+		cmake \
+		git
+#RUN pip3 install rpi.gpio
+CMD ["git", "clone", "git@github.com:google/googletest.git"]

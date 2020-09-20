@@ -2,28 +2,31 @@ FROM yummygooey/raspbian-buster
 WORKDIR /home/weatherStation
 COPY . .
 
-#RUN apt-get update && \
-#    apt-get -qy install curl \
-#    ca-certificates \
-#    cmake \
-#    g++ \
-#    git \
-#    wget
+RUN apt-get update && \
+    apt-get -qy install curl \
+    ca-certificates \
+    cmake \
+    g++ \
+    git
 
 
-#RUN apt-get update && \
-#    apt-get install -y openjdk-11-jre \
-#    wget
-#    #apt-get install openjdk-11-jre
-#
-#RUN wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | apt-key add -
-#RUN echo 'deb https://pkg.jenkins.io/debian binary/' >> /etc/apt/sources.list.d/jenkins.list
-#RUN apt-get update
-#RUN apt-get install -y jenkins
-# Add Tini
-ENV TINI_VERSION v0.19.0
-ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /bin/tini
-RUN chmod +x /bin/tini
-COPY jenkins.sh /usr/local/bin/jenkins.sh
-RUN chmod +x /usr/local/bin/jenkins.sh
-#ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
+RUN apt-get install -y openjdk-11-jre
+RUN apt-get install -y curl
+# Jenkins version
+ENV JENKINS_VERSION 2.51
+
+# Other env variables
+ENV JENKINS_HOME /var/jenkins_home
+ENV JENKINS_SLAVE_AGENT_PORT 50000
+
+# Get Jenkins
+RUN curl -fL -o /opt/jenkins.war https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/{$JENKINS_VERSION}/jenkins-war-{$JENKINS_VERSION}.war
+
+# Expose volume
+VOLUME ${JENKINS_HOME}
+
+# Expose ports
+EXPOSE 8080 ${JENKINS_SLAVE_AGENT_PORT}
+
+# Start Jenkins
+CMD ["sh", "-c", "java -jar /opt/jenkins.war"]

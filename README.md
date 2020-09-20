@@ -26,3 +26,13 @@ Run the following commands
 * cd /sys/bus/w1/devices && ls
 * cd 28-XXXXXXXXXXX (where xxx is the file number you will see with ls)
 * cat temperature (this will print the temperature on terminal)
+
+### Step 5 Docker Image with all dependencies including jenkins
+* To build the docker image from the dockerfile run the following:
+	docker build -t <name-of-image> . 
+  '.' refers to path to the docker file here assumed that docker file is in current directory
+
+* To run the docker image making sure the volume having jenkins state (p/w's , plugins etc.)
+  persisted run the (new) docker container as
+	docker run --network="host" -v jenkins:/var/jenkins_home -it --name=<name-of-container> <name-of-image> bash
+

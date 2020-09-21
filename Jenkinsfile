@@ -4,9 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'cd ${env.JOB_NAME}'
-                sh 'cd sensor_interface'
-                sh 'pwd'
+                sh 'echo ${env.JOB_NAME}'
             }
         }
 

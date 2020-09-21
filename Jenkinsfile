@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                sh 'cd ${job_name}'
                 sh 'cd sensor_interface'
                 sh 'mkdir -p build && cd build'
                 sh 'cmake .. -DCMAKE_BUILD_TYPE=Debug'

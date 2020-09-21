@@ -3,11 +3,10 @@ pipeline {
 
     stages {
         stage('Build') {
-            steps {
-		bash '''#!/bin/bash
+	    scripts: '''
+		#!/bin/bash
                 cd sensor_interface
-                '''
-            }
+                ''' 
         }
 
     }

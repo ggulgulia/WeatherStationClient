@@ -4,8 +4,10 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'cd sensor_interface'
-                sh 'pwd'
+                sh '''
+                cd sensor_interface'
+                'pwd'
+                '''
 
             }
         }

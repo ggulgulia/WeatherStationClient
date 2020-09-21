@@ -4,14 +4,11 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+		bash '''#!/bin/bash
                 cd sensor_interface
-		mkdir -p build && cd build
-		cmake .. -DCMAKE_BUILD_TYPE=Debug
-		make
-		./unit_tests/read_temperature_test
+		'''
             }
         }
-
 
     }
 }

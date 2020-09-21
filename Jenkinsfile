@@ -4,11 +4,9 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'cd ${job_name}'
+                sh 'cd ${env.JOB_NAME}'
                 sh 'cd sensor_interface'
-                sh 'mkdir -p build && cd build'
-                sh 'cmake .. -DCMAKE_BUILD_TYPE=Debug'
-                sh 'make'
+                sh 'pwd'
             }
         }
 

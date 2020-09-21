@@ -16,7 +16,7 @@ RUN apt-get install -y curl
 ENV JENKINS_VERSION 2.222.1
 
 # Other env variables
-ENV JENKINS_HOME /var/jenkins_home
+ENV JENKINS_HOME /var
 ENV JENKINS_SLAVE_AGENT_PORT 50000
 
 

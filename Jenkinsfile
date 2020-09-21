@@ -6,7 +6,7 @@ pipeline {
             steps {
 		bash '''#!/bin/bash
                 cd sensor_interface
-		'''
+                '''
             }
         }
 

@@ -28,6 +28,7 @@ namespace WS{
                 std::ifstream power_status_file;
                 try{
                     power_status_file.open(power_status_filepath);
+		    std::cout << "power status file path" << power_status_filepath << "\n";
                     if(!power_status_file){
                         std::stringstream str{power_status_filepath};
                         str << "cannot open file: " << power_status_filepath << "\n";

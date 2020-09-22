@@ -6,6 +6,8 @@ pipeline {
             steps {
                 sh 'pwd'
                 sh 'ls'
+                sh 'cd sensor_interface'
+                sh 'ls'
 
             }
         }

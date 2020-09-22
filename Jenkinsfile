@@ -6,8 +6,10 @@ pipeline {
             steps {
                 sh 'pwd'
                 sh 'ls'
-                sh 'cd sensor_interface'
-                sh 'ls'
+                dir('sensor_interface') {
+                    sh 'pwd'
+                    sh 'ls'
+                }
 
             }
         }

@@ -36,3 +36,7 @@ Run the following commands
   persisted run the (new) docker container as
 	docker run --network="host" -v jenkins:/var/jenkins_home -it --name=<name-of-container> <name-of-image> bash
 
+* To run the docker image with a binded volume to system files run the following command
+  docker run --network="host" -it -v jenkinsVol1:/var/jenkinsVol --mount  type=bind,source=/sys/bus/w1/devices/28-00000b65fafc,target=/sys/bus/w1/devices/28-00000b65fafc/ --name=as1 rpi bash
+  source is where the sensor files are stored on your system and target is where you want to copy those files on your docker container. 
+

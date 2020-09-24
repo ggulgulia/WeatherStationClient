@@ -15,7 +15,14 @@ pipeline {
         }
         stage('Unit Test'){
             steps {
-                sh './unit_tests/read_temperature_test'
+                sh 'pwd'
+                dir('sensor_interface') {
+                    sh 'pwd'
+                    dir('build'){
+                        sh 'pwd'
+                        sh './unit_tests/read_temperature_test'
+                    }
+                }
             }
         }
 

@@ -14,7 +14,9 @@ pipeline {
             }
         }
         stage('Unit Test'){
-            sh './unit_tests/read_temperature_test'
+            steps {
+                sh './unit_tests/read_temperature_test'
+            }
         }
 
     }

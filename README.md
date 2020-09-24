@@ -5,10 +5,15 @@
 
 ### Step 2: Configure Raspberry PI GPIO Pins
 Run the following commands on raspberry pi
-* $ sudo vim /boot/config.txt
-* Add dtoverlay=w1-gpio on the last line of the file
-* sudo reboot
+```
+ $ sudo vim /boot/config.txt
+```
+* Add `dtoverlay=w1-gpio` on the last line of the file
+```
+ sudo reboot
+```
 * login again on to your RPI
+
 
 ### Step 3: Set up hardware
 * Look at the images provides to attach temperature sensor to RPI 
@@ -23,16 +28,28 @@ Run the following commands on raspberry pi
 
 ### Step 4: Get the data from the device files
 Run the following commands
-* cd /sys/bus/w1/devices && ls
-* cd 28-XXXXXXXXXXX (where xxx is the file number you will see with ls)
-* cat temperature (this will print the temperature on terminal)
+```
+cd /sys/bus/w1/devices && ls
+cd 28-XXXXXXXXXXX (where xxx is the file number you will see with ls)
+cat temperature (this will print the temperature on terminal)
+```
 
 ### Step 5 Docker Image with all dependencies including jenkins
 * To build the docker image from the dockerfile run the following:
-	docker build -t <name-of-image> . 
+	```
+  docker build -t <name-of-image> . 
+  ```
   '.' refers to path to the docker file here assumed that docker file is in current directory
 
 * To run the docker image making sure the volume having jenkins state (p/w's , plugins etc.)
   persisted run the (new) docker container as
-	docker run --network="host" -v jenkins:/var/jenkins_home -it --name=<name-of-container> <name-of-image> bash
+	```
+  docker run --network="host" -v jenkins:/var/jenkins_home -it --name=<name-of-container> <name-of-image> bash
+  ```
+
+* To run the docker image with a binded volume to system files run the following command
+  ```
+  docker run --network="host" -it -v jenkins:/var/jenkins_home --mount  type=bind,source=/sys/bus/  w1/devices/28-00000b65fafc,target=/sys/bus/w1/devices/28-00000b65fafc --name=as_rpi1 rpi bash
+  ```
+  source is where the sensor files are stored on your system and target is where you want to copy those files on your docker container. 
 

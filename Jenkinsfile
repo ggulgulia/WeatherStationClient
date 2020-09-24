@@ -4,18 +4,25 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'pwd'
-                sh 'ls'
                 dir('sensor_interface') {
-                    sh 'pwd'
-                    sh 'ls'
                     dir('build'){
                         sh 'cmake .. -DCMAKE_BUILD_TYPE=Debug'
                         sh 'make'
-                        sh 'ls'
                     }
                 }
 
+            }
+        }
+        stage('Unit Test'){
+            steps {
+                sh 'pwd'
+                dir('sensor_interface') {
+                    sh 'pwd'
+                    dir('build'){
+                        sh 'pwd'
+                        sh './unit_tests/read_temperature_test'
+                    }
+                }
             }
         }
 

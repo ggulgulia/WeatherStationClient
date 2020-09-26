@@ -17,6 +17,10 @@ RUN pip3 install gcovr
 
 RUN apt-get install -y openjdk-11-jre
 RUN apt-get install -y curl
+
+# install webhook tools
+RUN apt-get install -y wget
+RUN wget -O /usr/local/bin/relay https://storage.googleapis.com/webhookrelay/downloads/relay-linux-arm
 # Jenkins version
 ENV JENKINS_VERSION 2.222.1
 

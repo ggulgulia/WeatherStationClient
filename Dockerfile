@@ -21,7 +21,9 @@ RUN apt-get install -y curl
 # install webhook tools
 RUN apt-get install -y wget
 RUN wget -O /usr/local/bin/relay https://storage.googleapis.com/webhookrelay/downloads/relay-linux-arm
+RUN /bin/bash -c 'chmod +wx /usr/local/bin/relay'
 # Jenkins version
+
 ENV JENKINS_VERSION 2.222.1
 
 # Other env variables

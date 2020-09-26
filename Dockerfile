@@ -7,7 +7,12 @@ RUN apt-get update && \
     ca-certificates \
     cmake \
     g++ \
-    git
+    git 
+    
+RUN apt-get install -y libxml2-dev libxslt-dev python3-dev
+RUN apt-get install -y python3-pip
+RUN apt-get install -y python3-lxml python-lxml
+RUN pip3 install gcovr 
 
 
 RUN apt-get install -y openjdk-11-jre
@@ -28,6 +33,3 @@ VOLUME ${JENKINS_HOME}
 
 # Expose ports
 EXPOSE 8080 ${JENKINS_SLAVE_AGENT_PORT}
-
-# Start Jenkins
-CMD ["sh", "-c", "java -jar /opt/jenkins.war"]

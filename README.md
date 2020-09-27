@@ -47,9 +47,23 @@ cat temperature (this will print the temperature on terminal)
   docker run --network="host" -v jenkins:/var/jenkins_home -it --name=<name-of-container> <name-of-image> bash
   ```
 
-* To run the docker image with a binded volume to system files run the following command
-  ```
-  docker run --network="host" -it -v jenkins:/var/jenkins_home --mount  type=bind,source=/sys/bus/  w1/devices/28-00000b65fafc,target=/sys/bus/w1/devices/28-00000b65fafc --name=as_rpi1 rpi bash
-  ```
-  source is where the sensor files are stored on your system and target is where you want to copy those files on your docker container. 
+* To run the docker container such that the jenkins data and settings are persisted across different docker containers, first cretae a volume and then mount. 
+* To create the volume first run 
+  `jenkins volume  create jenkins`
+  where the last token, `jenkins` in the command above is the name of the volume where all the jenkins  data is stored and  persisted
 
+* After creating the volume run the docker container by using:
+  ```
+  docker run --network="host" -it --mount source=jenkins,target=/var/jenkins_home -v /sys/bus/w1/devices/28-00000b65fafc:/sys/bus/w1/devices/28-00000b65fafc --name=as_rpi1 rpi2:latest bash
+  ```
+  Note: the flag `-v` informs jenkins to attach the `path\to\sensor\data\on\rpi:as\path\to\sensor\data\in\docker\container` 
+
+### Step 6 Running jenkins within the container
+
+* Start jenkins by:
+`java -jar /opt/jenkins.war`
+
+* Attach another bash on the container and start webhook relay as
+` docker exec -it name_of_already_running_container bash`
+`relay login -k $RELAY_KEY -s $RELAY_SECRET`
+`relay forward --bucket github-jenkins http://ip_of_rpi:8080/github-webhook/`

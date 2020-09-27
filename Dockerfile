@@ -27,7 +27,7 @@ RUN /bin/bash -c 'chmod +wx /usr/local/bin/relay'
 ENV JENKINS_VERSION 2.222.1
 
 # Other env variables
-ENV JENKINS_HOME /var
+ENV JENKINS_HOME /var/jenkins_home
 ENV JENKINS_SLAVE_AGENT_PORT 50000
 ENV RELAY_KEY cbf989c8-5c87-4561-856b-44c7285720f1
 ENV RELAY_SECRET 2aQXLjBbRIbH

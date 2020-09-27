@@ -30,7 +30,17 @@ pipeline {
 
     post {
         always {
-            junit 'sensor_interface/build/coverage/index.html'
+            publishHTML (
+                            target: [
+                                    allowMissing: false,
+                                    alwaysLinkToLastBuild: false,
+                                    keepAll: true,
+                                    reportDir: 'sensor/interface/build/coverage',
+                                    reportFiles: 'index.html',
+                                    reportName: "Coverage Report"
+                                ]
+                        )
+
         }
     }
 }

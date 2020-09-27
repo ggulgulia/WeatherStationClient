@@ -21,7 +21,8 @@ ELSEIF(CMAKE_BUILD_TYPE MATCHES Debug)
 	include("CMakeModules/CodeCoverage.cmake")
 	setup_target_for_coverage_gcovr_html(NAME coverage
 							           	EXECUTABLE ctest
-										EXCLUDE "${PROJECT_SOURCE_DIR}/test/googletest"
+										EXCLUDE "${PROJECT_SOURCE_DIR}/test"
+
 								        )
 
 	message("Building project Sensor Interface test coverage")

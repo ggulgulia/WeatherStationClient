@@ -1,12 +1,12 @@
 pipeline {
     agent any
-    triggers{ cron('H/15 * * * *') }
+    triggers{ cron('H/20 * * * *') }
     stages {
         stage('Build') {
             steps {
                 dir('sensor_interface') {
                     dir('build'){
-                        sh 'cmake .. -DCMAKE_BUILD_TYPE=Debug'
+                        sh 'cmake .. -DCMAKE_BUILD_TYPE=Debug -DCOVERAGE=ON'
                         sh 'make'
                     }
                 }
@@ -15,16 +15,29 @@ pipeline {
         }
         stage('Unit Test'){
             steps {
-                sh 'pwd'
                 dir('sensor_interface') {
-                    sh 'pwd'
                     dir('build'){
-                        sh 'pwd'
-                        sh './unit_tests/read_temperature_test'
+                        sh 'make coverage'
                     }
                 }
             }
-        }
 
+        }
+    }
+
+    post {
+        always {
+            publishHTML (
+                            target: [
+                                    allowMissing: false,
+                                    alwaysLinkToLastBuild: false,
+                                    keepAll: true,
+                                    reportDir: 'sensor_interface/build/coverage',
+                                    reportFiles: 'index.html',
+                                    reportName: "Coverage Report"
+                                ]
+                        )
+
+        }
     }
 }

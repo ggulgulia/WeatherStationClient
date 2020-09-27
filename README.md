@@ -67,3 +67,9 @@ cat temperature (this will print the temperature on terminal)
 ` docker exec -it name_of_already_running_container bash`
 `relay login -k $RELAY_KEY -s $RELAY_SECRET`
 `relay forward --bucket github-jenkins http://ip_of_rpi:8080/github-webhook/`
+
+### Update. Display code coverage repor within jenkins web agent
+* Need to install  HTML Publisher plugin in jenkins
+* Due to security settings in jenkins the css styled pages are not displayed by jenkins as mentioned in this page `https://www.jenkins.io/doc/book/system-administration/security/configuring-content-security-policy/#ConfiguringContentSecurityPolicy-HTMLPublisherPlugin`
+* To overcome this issue (by bypassing the security settings as mentioned in the page above) start jenkins using:
+  `java -Dhudson.model.DirectoryBrowserSupport.CSP= -jar \opt\jenkins.war`

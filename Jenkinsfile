@@ -6,7 +6,7 @@ pipeline {
             steps {
                 dir('sensor_interface') {
                     dir('build'){
-                        sh 'cmake .. -DCMAKE_BUILD_TYPE=Debug'
+                        sh 'cmake .. -DCMAKE_BUILD_TYPE=Debug -DCOVERAGE=ON'
                         sh 'make'
                     }
                 }
@@ -17,9 +17,6 @@ pipeline {
             steps {
                 dir('sensor_interface') {
                     dir('build'){
-                        sh 'rm -rf *'
-                        sh 'cmake .. -DCMAKE_BUILD_TYPE=Debug -DCOVERAGE=ON'
-                        sh 'make'
                         sh 'make coverage'
                     }
                 }

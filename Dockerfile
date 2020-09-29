@@ -1,6 +1,4 @@
 FROM yummygooey/raspbian-buster
-WORKDIR /home/weatherStation
-COPY . .
 
 RUN apt-get update && \
     apt-get -qy install curl \
@@ -17,7 +15,29 @@ RUN pip3 install gcovr
 
 RUN apt-get install -y openjdk-11-jre
 RUN apt-get install -y curl
-# Jenkins version
+
+# install Paho 
+RUN apt-get install -y libssl-dev
+RUN git clone https://github.com/eclipse/paho.mqtt.c.git
+WORKDIR /paho.mqtt.c
+RUN cmake -Bbuild -H. -DPAHO_WITH_SSL=ON
+RUN cmake --build build/ --target install
+RUN ldconfig
+WORKDIR /
+RUN git clone https://github.com/eclipse/paho.mqtt.cpp
+WORKDIR /paho.mqtt.cpp
+RUN cmake -Bbuild -H. -DPAHO_BUILD_DOCUMENTATION=FALSE
+RUN cmake --build build/ --target install
+
+WORKDIR /home/weatherStation
+COPY . .
+
+# install webhook tools
+RUN apt-get install -y wget
+RUN wget -O /usr/local/bin/relay https://storage.googleapis.com/webhookrelay/downloads/relay-linux-arm
+RUN /bin/bash -c 'chmod +wx /usr/local/bin/relay'
+
+#Jenkins version
 ENV JENKINS_VERSION 2.222.1
 
 # Other env variables
@@ -33,3 +53,5 @@ VOLUME ${JENKINS_HOME}
 
 # Expose ports
 EXPOSE 8080 ${JENKINS_SLAVE_AGENT_PORT}
+
+

@@ -13,7 +13,7 @@ add_executable(mqtt_client_test
               mqtt_client_test.cpp
               )
 
-target_link_libraries(mqtt_client_test gtest)
+target_link_libraries(mqtt_client_test paho-mqtt3c paho-mqttpp3 gtest)
 
 set(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/build/unit_tests")
 

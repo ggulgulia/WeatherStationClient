@@ -6,6 +6,8 @@
 #include <memory>
 #include <exception>
 
+using namespace std::literals::chrono_literals;
+
 namespace WS{
     class MQTTClient {
         public:
@@ -18,7 +20,8 @@ namespace WS{
                 try{
                     mqtt::connect_options connOpts;
                     connOpts.set_clean_session(true);
-                    client_->connect(connOpts);
+                    auto token = client_->connect(connOpts);
+                    token->wait_for(200ms);
                 }
                 catch(std::exception& e){
                     std::cerr << "Connect method threw: " << e.what() << "\n";

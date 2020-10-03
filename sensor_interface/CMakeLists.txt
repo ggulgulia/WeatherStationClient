@@ -20,7 +20,7 @@ ELSEIF(CMAKE_BUILD_TYPE MATCHES Debug)
 	IF(COVERAGE)
 	include("CMakeModules/CodeCoverage.cmake")
 	setup_target_for_coverage_gcovr_html(NAME coverage
-							           	EXECUTABLE ctest
+							           	EXECUTABLE ctest -VV
 										EXCLUDE "${PROJECT_SOURCE_DIR}/test"
 
 								        )

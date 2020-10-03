@@ -2,8 +2,8 @@
 #define WEATHER_SENSOR_INTERFACE_H
 
 #include <iostream>
+#include "enums.hpp"
 namespace WS{
-enum class state{off, on, ground_disconnected, unknown};
 
     class WeatherSensorInterface{
         public:

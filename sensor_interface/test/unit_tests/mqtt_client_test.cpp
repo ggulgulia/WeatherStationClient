@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "../../headers/mqtt_client.hpp"
+#include "mqtt_client.hpp"
 #include <typeinfo>
 #include <chrono>
 
@@ -28,6 +28,12 @@ TEST(MqttClientTest, client_does_not_connect_to_fake_ip){
 TEST_F(MqttClientFixture, ConnectionSuccessful){
     mqtt_client_->Connect();
     ASSERT_EQ(mqtt_client_->IsConnected(), true);
+}
+
+TEST_F(MqttClientFixture, test){
+    mqtt_client_->Connect();
+    Result ret = mqtt_client_->PublishMessage("Topic1", "Payload 1");
+    ASSERT_EQ(ret, Result::Successful);
 }
 
 int main(int argc, char** argv){

@@ -12,29 +12,12 @@ namespace WS{
     class MQTTClient {
         public:
     
-            MQTTClient(const std::string& ipAddress, const std::string& clientId):
-            client_{std::make_unique<mqtt::async_client>(ipAddress, clientId)}
-            {}
-
-            void Connect(){
-                try{
-                    mqtt::connect_options connOpts;
-                    connOpts.set_clean_session(true);
-                    auto token = client_->connect(connOpts);
-                    token->wait_for(400ms);
-                }
-                catch(std::exception& e){
-                    std::cerr << "Connect method threw: " << e.what() << "\n";
-                }
-            }
-
-            bool IsConnected() noexcept {
-                return client_->is_connected();
-            }
+            MQTTClient(const std::string& ipAddress, const std::string& clientId);
+            void Connect();
+            bool IsConnected() const noexcept;
 
         private:
             std::unique_ptr<mqtt::async_client> client_;
-
     };
 
 } //namespace WS

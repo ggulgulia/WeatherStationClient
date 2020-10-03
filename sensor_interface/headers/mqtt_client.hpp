@@ -19,15 +19,15 @@ namespace WS{
             bool IsConnected() const noexcept;
 
             Result PublishMessage(const std::string& topic, const std::string& payload){
-                try{
-                    mqtt::message_ptr pubmsg = mqtt::make_message(topic, payload);
-                    pubmsg->set_qos(1);
-                    auto pubtok = client_->publish(pubmsg)->wait_for(500ms);
+                Result retval = Result::Successful;
+                mqtt::message_ptr pubmsg = mqtt::make_message(topic, payload);
+                pubmsg->set_qos(1);
+                auto pubtok = client_->publish(pubmsg)->wait_for(500ms);
+                if(!pubtok){
+                    retval = Result::Unsuccessful; 
                 }
-                catch(std::exception& e){
-                    std::cerr << "MQTT::Publish threw error: " << e.what() << "\n";
-                }
-                return Result::Successful;
+                
+                return retval;
             }
 
         private:

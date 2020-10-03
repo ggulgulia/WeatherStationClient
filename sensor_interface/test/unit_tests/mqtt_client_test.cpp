@@ -15,13 +15,13 @@ class MqttClientFixture : public testing::Test{
     {}
 };
 
-TEST_F(MqttClientFixture, initialization){
+TEST_F(MqttClientFixture, Initialization){
     ASSERT_NE(mqtt_client_, nullptr);
 }
 
-TEST(MqttClientTest, client_does_not_connect_to_fake_ip){
+TEST(MqttClientTest, ConnectionFails){
   MQTTClient mqtt_client{"fake_ip", "fake_client"};
-  mqtt_client.Connect();
+  EXPECT_THROW( mqtt_client.Connect();, mqtt::exception );
   ASSERT_EQ(mqtt_client.IsConnected(), false);
 }
 
@@ -30,7 +30,7 @@ TEST_F(MqttClientFixture, ConnectionSuccessful){
     ASSERT_EQ(mqtt_client_->IsConnected(), true);
 }
 
-TEST_F(MqttClientFixture, test){
+TEST_F(MqttClientFixture, PublishMessageSucceeds){
     mqtt_client_->Connect();
     Result ret = mqtt_client_->PublishMessage("Topic1", "Payload 1");
     ASSERT_EQ(ret, Result::Successful);

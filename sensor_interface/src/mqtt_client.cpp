@@ -15,6 +15,8 @@ namespace WS{
                 }
                 catch(std::exception& e){
                     std::cerr << "Connect method threw: " << e.what() << "\n";
+                    throw;
+                    
                 }
             }
 

@@ -55,4 +55,4 @@ VOLUME ${JENKINS_HOME}
 
 # Expose ports
 EXPOSE 8080 ${JENKINS_SLAVE_AGENT_PORT}
-ENTRYPOINT java -jar /opt/jenkins.war
+ENTRYPOINT java -Dhudson.model.DirectoryBrowserSupport.CSP= -jar /opt/jenkins.war

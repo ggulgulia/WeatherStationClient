@@ -29,6 +29,9 @@ WORKDIR /paho.mqtt.cpp
 RUN cmake -Bbuild -H. -DPAHO_BUILD_DOCUMENTATION=FALSE
 RUN cmake --build build/ --target install
 
+#install mosquitto
+RUN apt-get install -y mosquitto mosquitto-clients
+
 WORKDIR /home/weatherStation
 COPY . .
 

@@ -21,14 +21,14 @@ namespace WS{
                     mqtt::connect_options connOpts;
                     connOpts.set_clean_session(true);
                     auto token = client_->connect(connOpts);
-                    token->wait_for(200ms);
+                    token->wait_for(400ms);
                 }
                 catch(std::exception& e){
                     std::cerr << "Connect method threw: " << e.what() << "\n";
                 }
             }
 
-            bool IsConnected(){
+            bool IsConnected() noexcept {
                 return client_->is_connected();
             }
 

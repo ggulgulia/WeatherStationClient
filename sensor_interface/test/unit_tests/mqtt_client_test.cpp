@@ -10,7 +10,7 @@ class MqttClientFixture : public testing::Test{
     std::unique_ptr<MQTTClient> mqtt_client_;
 
     MqttClientFixture(): 
-    mqtt_client_{std::make_unique<MQTTClient>("http://198.168.0.226", "test_id")}
+    mqtt_client_{std::make_unique<MQTTClient>("198.168.0.226", "test_id")}
     {}
 };
 
@@ -23,12 +23,6 @@ TEST(MqttClientTest, client_does_not_connect_to_fake_ip){
   mqtt_client.Connect();
   ASSERT_EQ(mqtt_client.IsConnected(), false);
 }
-
-
-
-
-
-
 
 int main(int argc, char** argv){
     testing::InitGoogleTest(&argc, argv);

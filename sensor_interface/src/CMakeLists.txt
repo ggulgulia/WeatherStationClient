@@ -1,6 +1,7 @@
 add_library(ws_mqtt_client
             TemperatureSensor.cpp
-            mqtt_client.cpp)
+            mqtt_client.cpp
+            TemperaturePublisher.cpp)
 
 target_include_directories(ws_mqtt_client
                             PUBLIC

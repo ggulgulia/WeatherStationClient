@@ -6,6 +6,7 @@
 #include <memory>
 #include <utility>
 #include <exception>
+#include <type_traits>
 #include "enums.hpp"
 
 using namespace std::literals::chrono_literals;
@@ -35,7 +36,6 @@ Result MQTTClient::PublishMessage(Topic&& topic, Payload&& payload)
                                             std::forward<Payload>(payload));
         pubmsg->set_qos(1);
         auto pubtok = client_->publish(pubmsg)->wait_for(500ms);
-
     }
     catch(std::exception& e){
         std::cerr << "MQTTClient::Publish threw: " << e.what() << "\n";

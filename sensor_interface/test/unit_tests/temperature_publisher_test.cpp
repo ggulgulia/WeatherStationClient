@@ -28,6 +28,7 @@ TEST_F(TemperaturePublisherFixture, PublishesHardcodedTemperature){
     ASSERT_GT(temperaturePublisher_->publish(), 10.0);
     ASSERT_LT(temperaturePublisher_->publish(), 30);
 }
+
 int main(int argc, char** argv){
     testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

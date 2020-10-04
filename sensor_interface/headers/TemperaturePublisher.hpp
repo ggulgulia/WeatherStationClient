@@ -10,34 +10,9 @@ namespace WS{
 
     class TemperaturePublisher{
         public:
-
-            //TemperaturePublisher(const std::string& ip, const std::string id):
-            //mqttClient_{std::make_shared<MQTTClient>(ip, id)}
-            //{
-            //    mqttClient_->Connect();
-            //}
-
-            TemperaturePublisher(std::shared_ptr<MQTTClient> client):
-            mqttClient_{client}
-            {
-                if(!mqttClient_){
-                    throw std::runtime_error("TemperaturePublisher::TemperaturePublisher(std::shared_ptr<MQTTClient> called with nullptr");
-                }
-
-                if(!mqttClient_->IsConnected()){
-                    mqttClient_->Connect();
-                }
-            }
-
-            double publish() const{
-              double temperature = temperatureSensor_.check_temperature();
-              mqttClient_->PublishMessage("Temperature", std::to_string(temperature));
-              return temperature;  
-            }
-
-            auto get_client() -> std::shared_ptr<MQTTClient> const {
-                return mqttClient_;
-            }
+            TemperaturePublisher(std::shared_ptr<MQTTClient> client);
+            double publish() const;
+            auto get_client() -> std::shared_ptr<MQTTClient> const;
 
         private:
             std::shared_ptr<MQTTClient>   mqttClient_;

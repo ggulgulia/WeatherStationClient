@@ -26,6 +26,7 @@ namespace WS{
     };
 
 //Implementation of perfect forwarding PublishMessage
+template<typename Topic, typename Payload>
 Result MQTTClient::PublishMessage(Topic&& topic, Payload&& payload)
 {
     Result retval = Result::Successful;

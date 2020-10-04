@@ -37,7 +37,7 @@ namespace WS{
         state_ = sensor_state;
     }
 
-    float TemperatureSensor::check_temperature() noexcept(false)
+    float TemperatureSensor::check_temperature() const noexcept(false)
     {
         std::string line;
         float temperature;

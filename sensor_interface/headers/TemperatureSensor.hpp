@@ -20,7 +20,7 @@ namespace WS{
             
             state is_on() const noexcept override;
             void update_temperature_sensor_power_status() noexcept(false);
-            float check_temperature() noexcept(false);
+            float check_temperature() const noexcept(false);
             
         private:
             state state_;

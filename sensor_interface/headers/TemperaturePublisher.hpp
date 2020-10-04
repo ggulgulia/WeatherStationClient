@@ -2,20 +2,31 @@
 #define TEMPERATURE_PUBLISHER_H
 
 #include "TemperatureSensor.hpp"
+#include "mqtt_client.hpp"
+
 namespace WS{
 
     class IWeatherPublisher{
         public:
-            virtual double publish() const = 0;
+            virtual double publish() const  = 0;
     };
 
     class TemperaturePublisher : public IWeatherPublisher{
         public:
+
+            TemperaturePublisher(MQTTClient& client):mqttClient_{client}
+            {
+
+            }
+
             double publish() const override{
-              return 25.1;  
+              double temperature = temperatureSensor_.check_temperature();
+              return temperature;  
             }
         private:
+            MQTTClient&        mqttClient_;
             TemperatureSensor temperatureSensor_;
+            
 
     };
 

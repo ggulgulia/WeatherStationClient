@@ -1,4 +1,5 @@
 #include "TemperaturePublisher.hpp"
+#include "mqtt_client.hpp"
 #include <gtest/gtest.h>
 
 using namespace WS;
@@ -7,10 +8,12 @@ using namespace WS;
 class TemperaturePublisherFixture : public testing::Test{
     public:
     std::unique_ptr<TemperaturePublisher> temperaturePublisher_;
-
+    MQTTClient client{"localhost", "Rpi"};
     TemperaturePublisherFixture():
-    temperaturePublisher_{std::make_unique<TemperaturePublisher>()}
+    temperaturePublisher_{std::make_unique<TemperaturePublisher>(client)}
     {           }
+
+    ~TemperaturePublisherFixture(){}
 };
 
 TEST_F(TemperaturePublisherFixture, IsInitialized){
@@ -18,7 +21,8 @@ TEST_F(TemperaturePublisherFixture, IsInitialized){
 }
 
 TEST_F(TemperaturePublisherFixture, PublishesHardcodedTemperature){
-    ASSERT_EQ(temperaturePublisher_->publish(), 25.1);
+    ASSERT_GT(temperaturePublisher_->publish(), 10.0);
+    ASSERT_LT(temperaturePublisher_->publish(), 30);
 }
 int main(int argc, char** argv){
     testing::InitGoogleTest(&argc, argv);

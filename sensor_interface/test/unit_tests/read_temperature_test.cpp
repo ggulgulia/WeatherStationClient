@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "../../headers/TemperatureSensor.h"
+#include "TemperatureSensor.hpp"
 
 using namespace WS;
 

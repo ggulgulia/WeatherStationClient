@@ -1,4 +1,5 @@
 add_library(ws_mqtt_client
+            TemperatureSensor.cpp
             mqtt_client.cpp)
 
 target_include_directories(ws_mqtt_client

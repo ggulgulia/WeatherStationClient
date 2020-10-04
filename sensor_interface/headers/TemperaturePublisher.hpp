@@ -31,6 +31,7 @@ namespace WS{
 
             double publish() const{
               double temperature = temperatureSensor_.check_temperature();
+              mqttClient_->PublishMessage("Temperature", std::to_string(temperature));
               return temperature;  
             }
 

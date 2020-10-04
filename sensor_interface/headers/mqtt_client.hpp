@@ -4,6 +4,7 @@
 #include <iostream>
 #include <mqtt/async_client.h>
 #include <memory>
+#include <utility>
 #include <exception>
 #include "enums.hpp"
 
@@ -17,11 +18,13 @@ namespace WS{
             MQTTClient(const std::string& ipAddress, const std::string& clientId);
             void Connect();
             bool IsConnected() const noexcept;
-
-            Result PublishMessage(const std::string& topic, const std::string& payload){
+            
+            template<typename Topic, typename Payload>
+            Result PublishMessage(Topic&& topic, Payload&& payload){
                 Result retval = Result::Successful;
                 try{
-                    mqtt::message_ptr pubmsg = mqtt::make_message(topic, payload);
+                    mqtt::message_ptr pubmsg = mqtt::make_message(std::forward<Topic>(topic), 
+                                                        std::forward<Payload>(payload));
                     pubmsg->set_qos(1);
                     auto pubtok = client_->publish(pubmsg)->wait_for(500ms);
 

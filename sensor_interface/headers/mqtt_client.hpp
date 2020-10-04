@@ -20,13 +20,17 @@ namespace WS{
 
             Result PublishMessage(const std::string& topic, const std::string& payload){
                 Result retval = Result::Successful;
-                mqtt::message_ptr pubmsg = mqtt::make_message(topic, payload);
-                pubmsg->set_qos(1);
-                auto pubtok = client_->publish(pubmsg)->wait_for(500ms);
-                if(!pubtok){
-                    retval = Result::Unsuccessful; 
+                try{
+                    mqtt::message_ptr pubmsg = mqtt::make_message(topic, payload);
+                    pubmsg->set_qos(1);
+                    auto pubtok = client_->publish(pubmsg)->wait_for(500ms);
+
                 }
-                
+                catch(std::exception& e){
+                    std::cerr << "MQTTClient::Publish threw: " << e.what() << "\n";
+                    retval = Result::Unsuccessful;   
+                }
+
                 return retval;
             }
 

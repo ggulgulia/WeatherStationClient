@@ -36,6 +36,12 @@ TEST_F(MqttClientFixture, PublishMessageSucceeds){
     ASSERT_EQ(ret, Result::Successful);
 }
 
+TEST_F(MqttClientFixture, PublishMessageFailsWithEmptyTopic){
+    mqtt_client_->Connect();
+    Result ret = mqtt_client_->PublishMessage("", "Payload 2");
+    ASSERT_EQ(ret, Result::Unsuccessful);
+}
+
 int main(int argc, char** argv){
     testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

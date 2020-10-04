@@ -14,7 +14,7 @@ namespace WS{
 
     class MQTTClient {
         public:
-    
+            MQTTClient() = delete;
             MQTTClient(const std::string& ipAddress, const std::string& clientId);
             void Connect();
             bool IsConnected() const noexcept;

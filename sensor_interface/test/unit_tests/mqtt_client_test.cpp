@@ -42,6 +42,12 @@ TEST_F(MqttClientFixture, PublishMessageFailsWithEmptyTopic){
     ASSERT_EQ(ret, Result::Unsuccessful);
 }
 
+TEST(MqttClientTest, PublishMessageFailsDueToNoConnection){
+    MQTTClient mqtt_client{"fake_ip", "fake_client"};
+    Result ret = mqtt_client.PublishMessage("", "Payload 2");
+    ASSERT_EQ(ret, Result::Unsuccessful);
+}
+
 int main(int argc, char** argv){
     testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

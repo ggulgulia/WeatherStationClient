@@ -3,6 +3,8 @@ add_library(ws_mqtt_client
             mqtt_client.cpp
             TemperaturePublisher.cpp)
 
+target_link_libraries(ws_mqtt_client PUBLIC  paho-mqtt3c paho-mqttpp3)
+
 target_include_directories(ws_mqtt_client
                             PUBLIC
                             $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/headers>

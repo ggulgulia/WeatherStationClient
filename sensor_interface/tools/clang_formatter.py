@@ -13,7 +13,7 @@ def apply_clang_formatter():
         file_list.append(str(a_file))
         
     cpp_file_sep = ' '
-    command = 'clang-format -i -assume-filename=.clang-format' + cpp_file_sep.join(file_list)
+    command = 'clang-format -i -assume-filename=.clang-format ' + cpp_file_sep.join(file_list)
     print(subprocess.getoutput(command))
 
 

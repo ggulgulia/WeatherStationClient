@@ -32,19 +32,19 @@ TEST_F(MqttClientFixture, ConnectionSuccessful){
 
 TEST_F(MqttClientFixture, PublishMessageSucceeds){
     mqtt_client_->Connect();
-    Result ret = mqtt_client_->PublishMessage("Topic1", "Payload 1");
+    Result ret = mqtt_client_->PublishMessage("Topic1", 1);
     ASSERT_EQ(ret, Result::Successful);
 }
 
 TEST_F(MqttClientFixture, PublishMessageFailsWithEmptyTopic){
     mqtt_client_->Connect();
-    Result ret = mqtt_client_->PublishMessage("", "Payload 2");
+    Result ret = mqtt_client_->PublishMessage("", 1);
     ASSERT_EQ(ret, Result::Unsuccessful);
 }
 
 TEST(MqttClientTest, PublishMessageFailsDueToNoConnection){
     MQTTClient mqtt_client{"fake_ip", "fake_client"};
-    Result ret = mqtt_client.PublishMessage("", "Payload 2");
+    Result ret = mqtt_client.PublishMessage("", 2);
     ASSERT_EQ(ret, Result::Unsuccessful);
 }
 

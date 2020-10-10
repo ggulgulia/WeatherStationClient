@@ -19,7 +19,7 @@ namespace WS{
             MQTTClient(const std::string& ipAddress, const std::string& clientId);
             void Connect();
             bool IsConnected() const noexcept;
-            template<typename Topic, typename Payload>
+            template<typename Topic, typename Payload, typename = std::enable_if_t<std::is_arithmetic_v<Payload>>>
             Result PublishMessage(Topic&& topic, Payload&& payload);
 
         private:
@@ -27,13 +27,13 @@ namespace WS{
     };
 
 //Implementation of perfect forwarding PublishMessage
-template<typename Topic, typename Payload>
+template<typename Topic, typename Payload, typename = std::enable_if_t<std::is_arithmetic_v<Payload>>>
 Result MQTTClient::PublishMessage(Topic&& topic, Payload&& payload)
 {
     Result retval = Result::Successful;
     try{
         mqtt::message_ptr pubmsg = mqtt::make_message(std::forward<Topic>(topic), 
-                                            std::forward<Payload>(payload));
+                                            std::forward<std::string>(std::to_string(payload)));
         pubmsg->set_qos(1);
         auto pubtok = client_->publish(pubmsg)->wait_for(500ms);
     }

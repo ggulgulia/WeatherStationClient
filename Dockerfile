@@ -6,13 +6,14 @@ RUN apt-get update && \
     cmake \
     g++ \
     git 
-    
+
 RUN apt-get install -y libxml2-dev libxslt-dev python3-dev
 RUN apt-get install -y python3-pip
 RUN apt-get install -y python3-lxml python-lxml
 RUN pip3 install gcovr 
 
-
+# Clang formatter
+RUN apt-get install -y clang-format-6.0 
 RUN apt-get install -y openjdk-11-jre
 RUN apt-get install -y curl
 

@@ -18,11 +18,17 @@ def check_clang_formatter():
     output = subprocess.getoutput(command)
     output_list = output.split()
     for word in output_list:
-        print("word: ", word)
+        #print("word: ", word)
         if word == '<replacement':
-            print("found:", word)
+            #print("found:", word)
             count += 1
-    print("Found ", count, ' errors with unformatted files! Run \'./tools/clang_formatter.py\'! ')
+
+    if count > 0:        
+        print("Found ", count, ' errors with unformatted files! Run \'./tools/clang_formatter.py\'! ')
+        return 1
+    else:
+        print("All files are formatted correctly, 0 errors found")
+    return 0
 
 
 if __name__ == '__main__':

@@ -47,14 +47,14 @@ cat temperature (this will print the temperature on terminal)
   docker run --network="host" -v jenkins:/var/jenkins_home -it --name=<name-of-container> <name-of-image> bash
   ```
 
-* To run the docker container such that the jenkins data and settings are persisted across different docker containers, first cretae a volume and then mount. 
+* To run the docker container such that the jenkins data and settings are persisted across different docker containers, first cretae a volume and then mount using volume `-v` flag. 
 * To create the volume first run 
-  `jenkins volume  create jenkins`
-  where the last token, `jenkins` in the command above is the name of the volume where all the jenkins  data is stored and  persisted
+  `jenkins volume  create jenkinsVolume1`
+  where the last token, `jenkinsVolume1` in the command above is the name of the volume where all the jenkins  data is stored and  persisted
 
 * After creating the volume run the docker container by using:
   ```
-  docker run --network="host" -it --mount source=jenkins,target=/var/jenkins_home -v /sys/bus/w1/devices/28-00000b65fafc:/sys/bus/w1/devices/28-00000b65fafc --name=as_rpi1 rpi2:latest bash
+  docker run --network="host" -it -v jenkinsVolume1:/var/jenkins_home -v /sys/bus/w1/devices/28-00000b65fafc:/sys/bus/w1/devices/28-00000b65fafc --name=as_rpi1 rpi:latest bash
   ```
   Note: the flag `-v` informs jenkins to attach the `path\to\sensor\data\on\rpi:as\path\to\sensor\data\in\docker\container` 
 

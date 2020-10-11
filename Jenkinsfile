@@ -2,6 +2,14 @@ pipeline {
     agent any
     triggers{ cron('H/20 * * * *') }
     stages {
+        stage('Clang-Format') {
+            steps {
+                dir('sensor_interface') {     
+                    sh 'python3 ./tools/check_clang_format.py'
+                }
+            }
+        }
+
         stage('Build') {
             steps {
                 dir('sensor_interface') {

@@ -4,22 +4,19 @@
 #include "TemperatureSensor.hpp"
 #include "mqtt_client.hpp"
 #include <exception>
-namespace WS{
+namespace WS {
 
+    class TemperaturePublisher {
+    public:
+        TemperaturePublisher(std::shared_ptr<MQTTClient> client);
+        double publish() const;
+        auto get_client() -> std::shared_ptr<MQTTClient> const;
 
-
-    class TemperaturePublisher{
-        public:
-            TemperaturePublisher(std::shared_ptr<MQTTClient> client);
-            double publish() const;
-            auto get_client() -> std::shared_ptr<MQTTClient> const;
-
-        private:
-            std::shared_ptr<MQTTClient>   mqttClient_;
-            TemperatureSensor temperatureSensor_;
-
+    private:
+        std::shared_ptr<MQTTClient> mqttClient_;
+        std::unique_ptr<TemperatureSensor> temperatureSensor_{nullptr};
     };
 
-}//namespace
+} // namespace WS
 
 #endif //TEMPERATURE_PUBLISHER_H

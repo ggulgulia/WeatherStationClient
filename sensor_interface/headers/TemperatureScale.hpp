@@ -20,15 +20,9 @@ namespace WS{
 
     class Celcius : public TemperatureScale{
         public:
-            double getValue()const noexcept override{
-                return temperature_;
-            }
-
+            double getValue()const noexcept override;
             virtual ~Celcius() = default;
-            std::ostream&  format(std::ostream& os) const override {
-                os << this->getValue() << " degrees celcius\n";
-                return os;
-            }
+            std::ostream&  format(std::ostream& os) const override;
     };
 
     class Fahrenheit : public TemperatureScale{

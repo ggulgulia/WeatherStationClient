@@ -15,5 +15,15 @@ std::ostream& operator << (std::ostream& os, const TemperatureScale& obj){
 }  
 /* TemperatureScale class implementation : END*/
 
+/* Celcius class implementation : START*/
+double Celcius::getValue()const noexcept{
+    return temperature_;
+}
+
+std::ostream&  Celcius::format(std::ostream& os) const {
+    os << this->getValue() << " degrees celcius\n";
+    return os;
+}
+/* Celcius class implementation : END*/
 
 } //namespace WS

@@ -51,7 +51,7 @@ namespace WS {
             else {
                 std::cout << "Successfully opened the temperature file\n";
                 while (std::getline(temperature_file, line)) {
-                    temperature = std::stof(line) * 0.001;
+                    temperature_->updateValue(std::stof(line) * 0.001);
                 }
                 temperature_file.close();
             }
@@ -59,7 +59,7 @@ namespace WS {
         catch (std::exception& e) {
             std::cerr << e.what() << "\n";
         }
-        return temperature;
+        return temperature_->getValue();
     }
 
 } //namespace WS

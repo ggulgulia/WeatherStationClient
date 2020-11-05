@@ -2,10 +2,12 @@
 #define TEMPERATURE_SENSOR_H
 
 #include "WeatherSensorInterface.h"
+#include "TemperatureScale.hpp"
 #include "sensor_data_paths.h"
 #include <fstream>
 #include <sstream>
 #include <unordered_map>
+#include <memory>
 
 namespace WS {
 
@@ -15,7 +17,12 @@ namespace WS {
     public:
         const TempSensorPowerMap state_map{{"0", state::off}, {"1", state::on}, {"-19", state::ground_disconnected}};
 
-        TemperatureSensor() = default;
+        TemperatureSensor():temperature_{std::make_unique<Celcius>()}
+        {   }
+
+        TemperatureSensor(std::unique_ptr<TemperatureScale>& temp):temperature_{std::move(temp)}
+        {   }
+        
         //avoid creating copies of sensor
         TemperatureSensor(const TemperatureSensor&) = delete;
         TemperatureSensor& operator=(const TemperatureSensor&) = delete;
@@ -26,7 +33,9 @@ namespace WS {
 
     private:
         state state_;
+        std::unique_ptr<TemperatureScale> temperature_{nullptr};
     };
+
 
 } //namespace WS
 #endif //TEMPERATURE_SENSOR_H

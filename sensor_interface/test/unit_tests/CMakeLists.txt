@@ -27,3 +27,12 @@ target_link_libraries(temperature_publisher_test ws_mqtt_client paho-mqtt3c paho
 set(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/build/unit_tests")
 add_test(NAME test3 COMMAND temperature_publisher_test)
 ############################## END ##############################
+
+############################# TEST 2 ############################
+add_executable(temperatue_scale_test
+               TemperatureScaleTest.cpp
+              )
+target_link_libraries(temperatue_scale_test ws_mqtt_client gtest)
+set(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/build/unit_tests")
+add_test(NAME test4 COMMAND temperatue_scale_test)
+############################## END ##############################

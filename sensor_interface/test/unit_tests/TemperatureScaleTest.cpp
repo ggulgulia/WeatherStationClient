@@ -14,6 +14,15 @@ TEST_F(TemperatureScaleTest, checkTemperatureScaleCelcius)
     ASSERT_DOUBLE_EQ(tempScale_->getValue(), 25.0);
 }
 
+TEST_F(TemperatureScaleTest, checkTemperatureScaleFahrenheit)
+{
+    tempScale_ = std::make_unique<WS::Fahrenheit>();
+    tempScale_->updateValue(25.0);
+    ASSERT_DOUBLE_EQ(tempScale_->getValue(), (25.0*9.0/5.0 + 32.0));
+}
+
+
+
 int main(int argc, char** argv)
 {
     testing::InitGoogleTest(&argc, argv);

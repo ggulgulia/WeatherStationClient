@@ -33,6 +33,21 @@ namespace WS{
             } 
     };
 
+    class Fahrenheit : public TemperatureScale{
+        public:
+            double getValue()const noexcept override{
+                return (9.0/5.0*temperature_) + 32.0;
+            }
+
+            virtual ~Fahrenheit() = default;
+            friend std::ostream& operator<<(std::ostream& os, const Fahrenheit obj){
+                os << obj.getValue() << " Fahrenheit\n";
+                return os;
+            } 
+    };
+
+    
+
 
 }
 #endif //TEMPERATURE_H

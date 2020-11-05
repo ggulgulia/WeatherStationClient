@@ -46,8 +46,19 @@ namespace WS{
             } 
     };
 
-    
+    class Kelvin : public TemperatureScale{
+        public:
+            double getValue()const noexcept override{
+                return temperature_ + 273.15;
+            }
 
+            virtual ~Kelvin() = default;
 
+            friend std::ostream& operator<<(std::ostream& os, const Kelvin obj){
+                os << obj.getValue() << " Kelvin\n";
+                return os;
+            }     
+
+    };
 }
 #endif //TEMPERATURE_H

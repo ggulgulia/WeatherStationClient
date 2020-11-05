@@ -26,4 +26,25 @@ std::ostream&  Celcius::format(std::ostream& os) const {
 }
 /* Celcius class implementation : END*/
 
+/* Fahrenheit class implementation : START*/
+double Fahrenheit::getValue()const noexcept{
+    return (9.0/5.0*temperature_) + 32.0;
+}
+
+std::ostream&  Fahrenheit::format(std::ostream& os) const{
+    os << this->getValue() << " degrees Fahrenheit\n";
+    return os;
+}
+/* Fahrenheit class implementation : END*/
+
+/* Kelvin class implementation : START*/
+double Kelvin::getValue()const noexcept{
+    return temperature_ + 273.15;
+}
+std::ostream&  Kelvin::format(std::ostream& os) const {
+    os << this->getValue() << " degrees Kelvin\n";
+    return os;
+}
+/* Kelvin class implementation : END*/
+
 } //namespace WS

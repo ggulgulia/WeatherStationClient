@@ -27,28 +27,16 @@ namespace WS{
 
     class Fahrenheit : public TemperatureScale{
         public:
-            double getValue()const noexcept override{
-                return (9.0/5.0*temperature_) + 32.0;
-            }
-
+            double getValue()const noexcept override;
             virtual ~Fahrenheit() = default;
-            std::ostream&  format(std::ostream& os) const override {
-                os << this->getValue() << " degrees Fahrenheit\n";
-                return os;
-            }
+            std::ostream&  format(std::ostream& os) const override;
     };
 
     class Kelvin : public TemperatureScale{
         public:
-            double getValue()const noexcept override{
-                return temperature_ + 273.15;
-            }
-
+            double getValue()const noexcept override;
             virtual ~Kelvin() = default;
-            std::ostream&  format(std::ostream& os) const override {
-                os << this->getValue() << " degrees Kelvin\n";
-                return os;
-            }
+            std::ostream&  format(std::ostream& os) const override;
 
     };
 }

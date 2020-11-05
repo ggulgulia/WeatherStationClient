@@ -19,7 +19,7 @@ add_test(NAME test2 COMMAND mqtt_client_test)
 ############################## END ##############################
 
 
-############################# TEST 2 ############################
+############################# TEST 3 ############################
 add_executable(temperature_publisher_test
                temperature_publisher_test.cpp
               )
@@ -28,7 +28,7 @@ set(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/build/unit_tests")
 add_test(NAME test3 COMMAND temperature_publisher_test)
 ############################## END ##############################
 
-############################# TEST 2 ############################
+############################# TEST 4 ############################
 add_executable(temperatue_scale_test
                TemperatureScaleTest.cpp
               )

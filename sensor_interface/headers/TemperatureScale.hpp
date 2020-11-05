@@ -8,20 +8,14 @@ namespace WS{
     class TemperatureScale{
         public:
             TemperatureScale() = default;
-            TemperatureScale(double temp): temperature_{temp}
-            {   }
+            TemperatureScale(double temp);
             virtual ~TemperatureScale() = default;
-            void updateValue(const double newVal) noexcept{
-                temperature_ = newVal;
-            }
-
+            void updateValue(const double newVal) noexcept;
             virtual double getValue() const noexcept = 0;
         protected:
             double temperature_{0.0};
             virtual std::ostream&  format(std::ostream& os) const = 0;    
-            friend std::ostream& operator << (std::ostream& os, const TemperatureScale& obj){
-                return obj.format(os);
-            }    
+            friend std::ostream& operator << (std::ostream& os, const TemperatureScale& obj);
     };
 
     class Celcius : public TemperatureScale{

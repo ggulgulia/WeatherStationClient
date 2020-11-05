@@ -1,4 +1,5 @@
 add_library(ws_mqtt_client
+            TemperatureScale.cpp
             TemperatureSensor.cpp
             mqtt_client.cpp
             TemperaturePublisher.cpp)

@@ -18,6 +18,10 @@ namespace WS{
             virtual double getValue() const noexcept = 0;
         protected:
             double temperature_{0.0};
+            virtual std::ostream&  format(std::ostream& os) const = 0;    
+            friend std::ostream& operator << (std::ostream& os, const TemperatureScale& obj){
+                return obj.format(os);
+            }    
     };
 
     class Celcius : public TemperatureScale{
@@ -27,10 +31,10 @@ namespace WS{
             }
 
             virtual ~Celcius() = default;
-            friend std::ostream& operator<<(std::ostream& os, const Celcius obj){
-                os << obj.getValue() << " Celciu\n";
+            std::ostream&  format(std::ostream& os) const override {
+                os << this->getValue() << " degrees celcius\n";
                 return os;
-            } 
+            }
     };
 
     class Fahrenheit : public TemperatureScale{
@@ -40,10 +44,10 @@ namespace WS{
             }
 
             virtual ~Fahrenheit() = default;
-            friend std::ostream& operator<<(std::ostream& os, const Fahrenheit obj){
-                os << obj.getValue() << " Fahrenheit\n";
+            std::ostream&  format(std::ostream& os) const override {
+                os << this->getValue() << " degrees Fahrenheit\n";
                 return os;
-            } 
+            }
     };
 
     class Kelvin : public TemperatureScale{
@@ -53,11 +57,10 @@ namespace WS{
             }
 
             virtual ~Kelvin() = default;
-
-            friend std::ostream& operator<<(std::ostream& os, const Kelvin obj){
-                os << obj.getValue() << " Kelvin\n";
+            std::ostream&  format(std::ostream& os) const override {
+                os << this->getValue() << " degrees Kelvin\n";
                 return os;
-            }     
+            }
 
     };
 }

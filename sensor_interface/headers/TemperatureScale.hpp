@@ -20,23 +20,29 @@ namespace WS{
 
     class Celcius : public TemperatureScale{
         public:
-            double getValue()const noexcept override;
+            Celcius() = default;
+            Celcius(const Celcius&) = default;
             virtual ~Celcius() = default;
-            std::ostream&  format(std::ostream& os) const override;
+            double getValue()const noexcept override final;
+            std::ostream&  format(std::ostream& os) const override final;
     };
 
     class Fahrenheit : public TemperatureScale{
         public:
-            double getValue()const noexcept override;
+            Fahrenheit() = default;
+            Fahrenheit(const Fahrenheit&) = default;
             virtual ~Fahrenheit() = default;
-            std::ostream&  format(std::ostream& os) const override;
+            double getValue()const noexcept override final;
+            std::ostream&  format(std::ostream& os) const override final;
     };
 
     class Kelvin : public TemperatureScale{
         public:
-            double getValue()const noexcept override;
-            virtual ~Kelvin() = default;
-            std::ostream&  format(std::ostream& os) const override;
+            Kelvin() = default;
+            Kelvin(const Kelvin&) = default;
+             virtual ~Kelvin() = default;
+            double getValue()const noexcept override final;
+            std::ostream&  format(std::ostream& os) const override final;
 
     };
 }

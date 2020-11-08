@@ -16,6 +16,6 @@ add_executable(weather_station
                 main.cpp 
                 )
 
-target_link_libraries(weather_station ws_mqtt_client)
+target_link_libraries(weather_station ws_mqtt_client pthread)
 
 set(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/build")

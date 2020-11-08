@@ -2,6 +2,14 @@
 
 namespace WS {
 
+    TemperatureSensor::TemperatureSensor():temperature_{std::make_unique<Celcius>()}
+    {   
+    }
+
+    TemperatureSensor::TemperatureSensor(std::unique_ptr<TemperatureScale>& temp):temperature_{std::move(temp)}
+    {  
+    }
+
     state TemperatureSensor::is_on() const noexcept
     {
         return state_;

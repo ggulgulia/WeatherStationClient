@@ -16,13 +16,8 @@ namespace WS {
     class TemperatureSensor : public WeatherSensorInterface {
     public:
         const TempSensorPowerMap state_map{{"0", state::off}, {"1", state::on}, {"-19", state::ground_disconnected}};
-
-        TemperatureSensor():temperature_{std::make_unique<Celcius>()}
-        {   }
-
-        TemperatureSensor(std::unique_ptr<TemperatureScale>& temp):temperature_{std::move(temp)}
-        {   }
-        
+        TemperatureSensor();
+        TemperatureSensor(std::unique_ptr<TemperatureScale>& temp);
         //avoid creating copies of sensor
         TemperatureSensor(const TemperatureSensor&) = delete;
         TemperatureSensor& operator=(const TemperatureSensor&) = delete;
@@ -30,12 +25,11 @@ namespace WS {
         state is_on() const noexcept override;
         void update_temperature_sensor_power_status() noexcept(false);
         float check_temperature() const noexcept(false);
-
+        
     private:
         state state_;
         std::unique_ptr<TemperatureScale> temperature_{nullptr};
     };
-
 
 } //namespace WS
 #endif //TEMPERATURE_SENSOR_H

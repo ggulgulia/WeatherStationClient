@@ -43,7 +43,6 @@ namespace WS{
              virtual ~Kelvin() = default;
             double getValue()const noexcept override final;
             std::ostream&  format(std::ostream& os) const override final;
-
     };
 }
 #endif //TEMPERATURE_H

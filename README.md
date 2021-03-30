@@ -76,4 +76,4 @@ cat temperature (this will print the temperature on terminal)
 
 ## How to run the Weather Staiton
 
-* Detailed instructions on how to run the weather station can be found in [here](HowToRUnWeatherStation.md)
+* Detailed instructions on how to run the weather station can be found in [here](HowToRunWeatherStation.md)

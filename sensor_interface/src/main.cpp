@@ -13,7 +13,6 @@ static bool keep_running = true;
 static int kbhit(void) {
     static bool initflag = false;
     static const int STDIN = 0;
-
     if (!initflag) {
         // Use termios to turn off line buffering
         struct termios term;
@@ -23,19 +22,16 @@ static int kbhit(void) {
         setbuf(stdin, NULL);
         initflag = true;
     }
-
     int nbbytes;
     ioctl(STDIN, FIONREAD, &nbbytes);  // 0 is STDIN
     return nbbytes;
 }
 
-static void userInput_thread()
-{
-    std::string name;
-    char c;
+static void userInput_thread(){
+    char keyboard_input;
     while(!kbhit()) {
-        c = getchar();
-        if (c == 'q')
+        keyboard_input = getchar();
+        if (keyboard_input == 'q')
         {
             std::this_thread::sleep_for(500ms);
             std::cout << "\n";
@@ -48,10 +44,9 @@ static void userInput_thread()
 }
 
 int main(){
-
-    pthread_t tId;
-    //(void) pthread_create(&tId, 0, userInput_thread, 0);
-    std::thread key_board_listen(userInput_thread);
+    
+    //launch a separate thread to listen keyboard interrupt
+    std::thread key_board_listen_thread(userInput_thread);
 
     std::cout << "Hello Weather Station\n";
     std::shared_ptr<MQTTClient> client = std::make_shared<MQTTClient>("localhost", "main");
@@ -62,7 +57,6 @@ int main(){
         temp_publisher.publish();
         std::this_thread::sleep_for(1s);
     }
-    key_board_listen.join();
-    //(void) pthread_join(tId, NULL);
+    key_board_listen_thread.join();
     return 0;
 }

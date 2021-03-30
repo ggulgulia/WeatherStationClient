@@ -73,3 +73,7 @@ cat temperature (this will print the temperature on terminal)
 * Due to security settings in jenkins the css styled pages are not displayed by jenkins as mentioned in this page `https://www.jenkins.io/doc/book/system-administration/security/configuring-content-security-policy/#ConfiguringContentSecurityPolicy-HTMLPublisherPlugin`
 * To overcome this issue (by bypassing the security settings as mentioned in the page above) start jenkins using:
   `java -Dhudson.model.DirectoryBrowserSupport.CSP= -jar \opt\jenkins.war`
+
+## How to run the Weather Staiton
+
+* Detailed instructions on how to run the weather station can be found in [here](HowToRUnWeatherStation.md)

@@ -3,7 +3,10 @@ add_library(ws_mqtt_client
             TemperatureSensor.cpp
             mqtt_client.cpp
             TemperaturePublisher.cpp
-            PressureHelper.cpp)
+            PressureHelper.cpp
+            PressureSensor.cpp
+            PressurePublisher.cpp
+            )
 
 target_link_libraries(ws_mqtt_client PUBLIC  paho-mqtt3as paho-mqttpp3 ssl crypto pthread -ldl)
 

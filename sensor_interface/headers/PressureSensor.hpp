@@ -2,6 +2,8 @@
 #define PRESSURE_SENSOR_H
 
 #include "WeatherSensorInterface.hpp"
+#include "PressureHelper.hpp"
+#include "enums.hpp"
 
 namespace WS
 {

@@ -36,7 +36,7 @@ namespace WS {
                 mqtt::message_ptr pubmsg = mqtt::make_message(std::forward<Topic>(topic),
                     std::forward<std::string>(std::to_string(payload)));
                 pubmsg->set_qos(1);
-               // auto pubtok = client_->publish(pubmsg)->wait_for(500ms);
+                auto pubtok = client_->publish(pubmsg)->wait_for(500ms);
             }
             catch (std::exception& e) {
                 std::cerr << "MQTTClient::Publish threw: " << e.what() << "\n";

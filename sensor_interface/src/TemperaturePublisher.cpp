@@ -18,6 +18,7 @@ namespace WS {
         double temperature = temperatureSensor_->check_temperature();
         //TODO instead of returning temperature value, check if publish was success
         mqttClient_->PublishMessage("Temperature", static_cast<float>(temperature));
+	std::cout << "Temp: " << static_cast<float>(temperature) << "\n";
         return temperature;
     }
 

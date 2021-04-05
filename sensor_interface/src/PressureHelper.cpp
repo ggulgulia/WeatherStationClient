@@ -1,26 +1,7 @@
-#include <stdlib.h>
-#include <unistd.h>
-#include <linux/i2c-dev.h>
-#include <sys/ioctl.h>
-#include <fcntl.h>
-#include <string>
-#include <iostream>
-#include <thread>
 
-using namespace std::literals::chrono_literals;
+#include "PressureHelper.hpp"
 
-namespace WS{
-class PressureSensor{
-
-    public:
-
-    private:
-
-};
-
-}//namespace WS
-
-double Pressure(){
+double PressureHelper(){
 	// Create I2C bus
 	int file;
     std::string bus{"/dev/i2c-1"};
@@ -32,12 +13,12 @@ double Pressure(){
 	ioctl(file, I2C_SLAVE, 0x76);
 
 	// Read 24 bytes of data from address(0x88)
-	char reg[1] = {0x88};
+	char reg[1] = {static_cast<char>(0x88)};
 	write(file, reg, 1);
 	char data[24] = {0};
 	if(read(file, data, 24) != 24)
 	{
-        std::ios_base::failure("I/O Error while reading sys descriptor file ");
+        std::ios_base::failure("I/O Error while reading sys descriptor file");
 	}
 	// Convert the data
 	// temp coefficents
@@ -138,5 +119,6 @@ double Pressure(){
 	var2 = p * ((double) dig_P8) / 32768.0;
 	double pressure = (p + (var1 + var2 + ((double)dig_P7)) / 16.0) / 100;
 	
+	std::cout << "Pressure " << pressure << "mm Hg\n";
     return pressure;
 }

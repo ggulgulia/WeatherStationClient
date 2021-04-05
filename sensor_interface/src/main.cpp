@@ -6,6 +6,8 @@
 #include <sys/ioctl.h> // For FIONREAD
 #include <termios.h>
 #include <stdbool.h>
+#include <PressureHelper.hpp>
+
 using namespace WS;
 
 static bool keep_running = true;
@@ -51,7 +53,7 @@ int main(){
     std::cout << "Hello Weather Station\n";
     std::shared_ptr<MQTTClient> client = std::make_shared<MQTTClient>("localhost", "main");
     TemperaturePublisher temp_publisher{client};
-
+    std::thread pressureThread(PressureHelper);
     while(keep_running)
     {
         temp_publisher.publish();

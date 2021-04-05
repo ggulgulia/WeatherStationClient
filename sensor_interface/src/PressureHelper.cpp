@@ -119,6 +119,6 @@ double PressureHelper(){
 	var2 = p * ((double) dig_P8) / 32768.0;
 	double pressure = (p + (var1 + var2 + ((double)dig_P7)) / 16.0) / 100;
 	
-	std::cout << "Pressure " << pressure << "mm Hg\n";
+	std::cout << "Pressure " << pressure << "Pa\n";
     return pressure;
 }

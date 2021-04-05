@@ -47,7 +47,7 @@ namespace WS {
     float TemperatureSensor::check_temperature() const noexcept(false)
     {
         std::string line;
-        float temperature{0.0};
+       // float temperature{0.0};
         std::ifstream temperature_file;
         try {
             temperature_file.open(temperature_filepath);

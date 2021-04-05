@@ -4,7 +4,7 @@ add_library(ws_mqtt_client
             mqtt_client.cpp
             TemperaturePublisher.cpp)
 
-target_link_libraries(ws_mqtt_client PUBLIC  paho-mqtt3c paho-mqttpp3)
+target_link_libraries(ws_mqtt_client PUBLIC  paho-mqtt3as paho-mqttpp3 ssl crypto pthread -ldl)
 
 target_include_directories(ws_mqtt_client
                             PUBLIC

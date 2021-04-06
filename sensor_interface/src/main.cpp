@@ -55,7 +55,6 @@ int main(){
     std::shared_ptr<MQTTClient> client = std::make_shared<MQTTClient>("localhost", "main");
     TemperaturePublisher temp_publisher{client};
     PressurePublisher pressure_publisher{client};
-    std::thread pressureThread(PressureHelper);
     while(keep_running)
     {
         temp_publisher.publish();

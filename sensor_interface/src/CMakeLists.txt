@@ -4,6 +4,7 @@ add_library(ws_mqtt_client
             mqtt_client.cpp
             TemperaturePublisher.cpp
             PressureHelper.cpp
+            PressureScale.cpp
             PressureSensor.cpp
             PressurePublisher.cpp
             )

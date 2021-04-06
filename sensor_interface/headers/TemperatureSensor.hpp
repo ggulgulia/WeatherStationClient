@@ -1,7 +1,7 @@
 #ifndef TEMPERATURE_SENSOR_H
 #define TEMPERATURE_SENSOR_H
 
-#include "WeatherSensorInterface.h"
+#include "WeatherSensorInterface.hpp"
 #include "TemperatureScale.hpp"
 #include "sensor_data_paths.h"
 #include <fstream>

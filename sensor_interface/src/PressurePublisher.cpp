@@ -15,9 +15,11 @@ namespace WS {
 
     double PressurePublisher::publish() const
     {
-        double pressure = pressureSensor_->check_pressure();
-        //TODO instead of returning pressure value, check if publish was success
-        mqttClient_->PublishMessage("Pressure", pressure);
+        double pressure{0.0};
+	pressure = pressureSensor_->check_pressure();
+        //TODO Return error code instead of pressure
+	//TODO fix the static cast to double
+        mqttClient_->PublishMessage("Pressure", static_cast<double>(pressure));
         return pressure;
     }
 

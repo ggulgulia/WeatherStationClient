@@ -36,22 +36,14 @@ static void userInput_thread(){
         keyboard_input = getchar();
         if (keyboard_input == 'q')
         {
-            std::this_thread::sleep_for(500ms);
-            std::cout << "\n";
-            std::cout << "keyboard interrupt: \"q\" received.\n"
-                      << "stopping program!\n";
+            std::this_thread::sleep_for(200ms);
             keep_running = false;
             break;
         }
     }
 }
 
-int main(){
-    
-    //launch a separate thread to listen keyboard interrupt
-    std::thread key_board_listen_thread(userInput_thread);
-
-    std::cout << "Hello Weather Station\n";
+void runWeatherStation(){
     std::shared_ptr<MQTTClient> client = std::make_shared<MQTTClient>("localhost", "main");
     TemperaturePublisher temp_publisher{client};
     PressurePublisher pressure_publisher{client};
@@ -59,8 +51,24 @@ int main(){
     {
         temp_publisher.publish();
         pressure_publisher.publish();
-        std::this_thread::sleep_for(1s);
     }
+}
+
+int main(){
+
+    std::cout << "Hello Weather Station\n";
+    //launch a separate thread to listen keyboard interrupt
+    std::thread key_board_listen_thread(userInput_thread);
+    std::thread weatherStationThread(runWeatherStation);
     key_board_listen_thread.join();
+    weatherStationThread.join();
+
+    if(!keep_running){
+       std::cout << "\n";
+       std::cout << "keyboard interrupt: \"q\" received.\n"
+                 << "stopping program!\n";
+    
+    }
+
     return 0;
 }

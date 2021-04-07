@@ -3,6 +3,7 @@
 
 #include "WeatherSensorInterface.hpp"
 #include "PressureHelper.hpp"
+#include "PressureScale.hpp"
 #include "enums.hpp"
 
 namespace WS
@@ -10,8 +11,8 @@ namespace WS
     class PressureSensor : public WeatherSensorInterface {
         public:
             //const TempSensorPowerMap state_map{{"0", state::off}, {"1", state::on}, {"-19", state::ground_disconnected}};
-            PressureSensor() = default;
-            //PressureSensor(std::unique_ptr<PressureScale>& pressure);
+            PressureSensor();
+            PressureSensor(std::unique_ptr<PressureScale>& pressure);
             //avoid creating copies of sensor
             PressureSensor(const PressureSensor&) = delete;
             PressureSensor& operator=(const PressureSensor&) = delete;
@@ -22,7 +23,7 @@ namespace WS
 
         private:
             state state_;
-            //std::unique_ptr<TemperatureScale> temperature_{nullptr};
+            std::unique_ptr<PressureScale> pressure_{nullptr};
     };
 } // namespace WS
 

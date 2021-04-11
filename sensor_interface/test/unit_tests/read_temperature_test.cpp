@@ -7,12 +7,11 @@ using ::testing::AtLeast;
 using ::testing::Return;
 
 TEST(SensorTest, check_temperature) {
-  TemperatureSensorMock temperatureSensorMock; 
-  EXPECT_CALL(temperatureSensorMock, check_temperature);              
-  temperatureSensorMock.check_temperature();
-  TemperatureSensor sensor;                    
-  //EXPECT_TRUE(sensor.check_temperature());   
-  testing::Mock::VerifyAndClearExpectations(&temperatureSensorMock);
+  TemperatureScaleMock temperatureScaleMock;
+  EXPECT_CALL(temperatureScaleMock, getValue());              
+  //temperatureSensorMock.check_temperature();
+  TemperatureSensor sensor(&temperatureScaleMock); 
+  sensor.check_temperature();
 }
 
 

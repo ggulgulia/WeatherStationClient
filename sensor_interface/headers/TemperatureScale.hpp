@@ -10,7 +10,7 @@ namespace WS{
             TemperatureScale() = default;
             TemperatureScale(double temp);
             virtual ~TemperatureScale() = default;
-            void updateValue(const double newVal) noexcept;
+            virtual void updateValue(const double newVal) noexcept;
             virtual double getValue() const noexcept = 0;
         protected:
             double temperature_{0.0};

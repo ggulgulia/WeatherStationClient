@@ -2,11 +2,12 @@
 
 namespace WS {
 
-    TemperatureSensor::TemperatureSensor():WeatherSensorInterface{}, temperatureScale_{std::make_unique<Celcius>()}
+    TemperatureSensor::TemperatureSensor():WeatherSensorInterface{}, temperatureScale_{ new Celcius()}
     {   
     }
 
-    TemperatureSensor::TemperatureSensor(std::unique_ptr<TemperatureScale>& temp):temperatureScale_{std::move(temp)}
+    TemperatureSensor::TemperatureSensor(TemperatureScale* temp)
+    :temperatureScale_{temp}
     {  
     }
 

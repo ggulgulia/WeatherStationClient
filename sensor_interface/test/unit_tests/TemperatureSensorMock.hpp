@@ -6,9 +6,12 @@
 
 using namespace WS;
 
-class TemperatureSensorMock : public TemperatureSensor{
+class TemperatureScaleMock : public TemperatureScale{
     public:
-        MOCK_METHOD0(check_temperature, float()) ;
+        MOCK_METHOD(void, updateValue, (const double), (noexcept));
+        MOCK_METHOD(double, getValue, (), (const, noexcept));
+    private:
+        MOCK_CONST_METHOD1(format, std::ostream&(std::ostream& os));
 };
 
 #endif //TEMPERATURESENSOR_MOCK_H

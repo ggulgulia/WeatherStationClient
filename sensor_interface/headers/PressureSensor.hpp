@@ -18,7 +18,9 @@ namespace WS
             PressureSensor& operator=(const PressureSensor&) = delete;
             virtual ~PressureSensor() = default;
             state is_on() const noexcept override;
-            //void update_pressure_sensor_power_status() noexcept(false);
+            void update_sensor_power_status() noexcept(false) override{
+                //TODO: implement
+            }
             double check_pressure() const noexcept(false);
 
         private:

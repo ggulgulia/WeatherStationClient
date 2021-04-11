@@ -23,12 +23,12 @@ namespace WS {
         TemperatureSensor& operator=(const TemperatureSensor&) = delete;
         virtual ~TemperatureSensor() = default;
         state is_on() const noexcept override;
-        void update_temperature_sensor_power_status() noexcept(false);
-        float check_temperature() const noexcept(false);
+        void update_sensor_power_status() noexcept(false);
+        virtual float check_temperature();
         
     private:
         state state_;
-        std::unique_ptr<TemperatureScale> temperature_{nullptr};
+        std::unique_ptr<TemperatureScale> temperatureScale_{nullptr};
     };
 
 } //namespace WS

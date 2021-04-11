@@ -13,6 +13,7 @@ namespace WS{
             WeatherSensorInterface& operator=(const WeatherSensorInterface&) = delete;
             
             virtual state is_on() const noexcept = 0;
+            virtual void update_sensor_power_status() noexcept(false) = 0;
         
     };
 }

@@ -2,11 +2,11 @@
 
 namespace WS {
 
-    TemperatureSensor::TemperatureSensor():temperature_{std::make_unique<Celcius>()}
+    TemperatureSensor::TemperatureSensor():WeatherSensorInterface{}, temperatureScale_{std::make_unique<Celcius>()}
     {   
     }
 
-    TemperatureSensor::TemperatureSensor(std::unique_ptr<TemperatureScale>& temp):temperature_{std::move(temp)}
+    TemperatureSensor::TemperatureSensor(std::unique_ptr<TemperatureScale>& temp):temperatureScale_{std::move(temp)}
     {  
     }
 
@@ -15,7 +15,7 @@ namespace WS {
         return state_;
     }
 
-    void TemperatureSensor::update_temperature_sensor_power_status() noexcept(false)
+    void TemperatureSensor::update_sensor_power_status() noexcept(false)
     {
         std::string line, result;
         state sensor_state;
@@ -44,7 +44,7 @@ namespace WS {
         state_ = sensor_state;
     }
 
-    float TemperatureSensor::check_temperature() const noexcept(false)
+    float TemperatureSensor::check_temperature()
     {
         std::string line;
        // float temperature{0.0};
@@ -59,7 +59,7 @@ namespace WS {
             else {
                 std::cout << "Successfully opened the temperature file\n";
                 while (std::getline(temperature_file, line)) {
-                    temperature_->updateValue(std::stof(line) * 0.001);
+                    temperatureScale_->updateValue(std::stof(line) * 0.001);
                 }
                 temperature_file.close();
             }
@@ -67,7 +67,7 @@ namespace WS {
         catch (std::exception& e) {
             std::cerr << e.what() << "\n";
         }
-        return temperature_->getValue();
+        return temperatureScale_->getValue();
     }
 
 } //namespace WS

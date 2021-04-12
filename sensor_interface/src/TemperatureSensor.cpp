@@ -2,13 +2,14 @@
 
 namespace WS {
 
-    TemperatureSensor::TemperatureSensor():WeatherSensorInterface{}, temperatureScale_{ new Celcius()}
-    {   
+    TemperatureSensor::TemperatureSensor():WeatherSensorInterface{}, 
+    temperatureScale_{ new Celcius()}, state_{state::off}
+    {
     }
 
-    TemperatureSensor::TemperatureSensor(TemperatureScale* temp)
-    :temperatureScale_{temp}
-    {  
+    TemperatureSensor::TemperatureSensor(std::unique_ptr<TemperatureScale> temp)
+    :temperatureScale_{std::move(temp)}, state_{state::off}
+    {
     }
 
     state TemperatureSensor::is_on() const noexcept
@@ -16,18 +17,15 @@ namespace WS {
         return state_;
     }
 
-    void TemperatureSensor::update_sensor_power_status() noexcept(false)
+    void TemperatureSensor::update_sensor_power_status(const std::string& power_status_filepath) noexcept(false)
     {
         std::string line, result;
         state sensor_state;
         std::ifstream power_status_file;
         try {
-            power_status_file.open(power_status_filepath);
-            std::cout << "power status file path" << power_status_filepath << "\n";
+            openFile(power_status_file, power_status_filepath);
             if (!power_status_file) {
-                std::stringstream str{power_status_filepath};
-                str << "cannot open file: " << power_status_filepath << "\n";
-                throw std::runtime_error(str.str());
+                std::cerr << "could not open file\n";
             }
             else {
                 std::cout << "Successfully opened the power status file\n";
@@ -45,22 +43,20 @@ namespace WS {
         state_ = sensor_state;
     }
 
-    float TemperatureSensor::check_temperature()
+    float TemperatureSensor::check_temperature(const std::string& temperatureFilePath)
     {
         std::string line;
-       // float temperature{0.0};
         std::ifstream temperature_file;
         try {
-            temperature_file.open(temperature_filepath);
+            openFile(temperature_file, temperatureFilePath);
             if (!temperature_file) {
-                std::stringstream str{temperature_filepath};
-                str << "cannot open file: " << temperature_filepath << "\n";
-                throw std::runtime_error(str.str());
+
+                std::cerr << "cannot open file: " << temperatureFilePath << "\n";
             }
             else {
                 std::cout << "Successfully opened the temperature file\n";
                 while (std::getline(temperature_file, line)) {
-                    temperatureScale_->updateValue(std::stof(line) * 0.001);
+                    temperatureScale_->updateValue(std::stod(line) * 0.001);
                 }
                 temperature_file.close();
             }

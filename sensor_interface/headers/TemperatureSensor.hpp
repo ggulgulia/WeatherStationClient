@@ -17,18 +17,18 @@ namespace WS {
     public:
         const TempSensorPowerMap state_map{{"0", state::off}, {"1", state::on}, {"-19", state::ground_disconnected}};
         TemperatureSensor();
-        TemperatureSensor(TemperatureScale* temp);
+        TemperatureSensor(std::unique_ptr<TemperatureScale> temp);
         //avoid creating copies of sensor
         TemperatureSensor(const TemperatureSensor&) = delete;
         TemperatureSensor& operator=(const TemperatureSensor&) = delete;
         virtual ~TemperatureSensor() = default;
         state is_on() const noexcept override;
-        void update_sensor_power_status() noexcept(false);
-        virtual float check_temperature();
+        void update_sensor_power_status(const std::string& power_status_filepath) noexcept(false);
+        virtual float check_temperature(const std::string& temperatureFilePath);
         
     private:
         state state_;
-        TemperatureScale* temperatureScale_;
+        std::unique_ptr<TemperatureScale> temperatureScale_{nullptr};
     };
 
 } //namespace WS

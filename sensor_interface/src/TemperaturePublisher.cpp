@@ -15,7 +15,8 @@ namespace WS {
 
     double TemperaturePublisher::publish() const
     {
-        double temperature = temperatureSensor_->check_temperature();
+        std::string tempFilePath{"fixMePlease"};
+        double temperature = temperatureSensor_->check_temperature(tempFilePath);
         //TODO instead of returning temperature value, check if publish was success
         mqttClient_->PublishMessage("Temperature", static_cast<float>(temperature));
 	std::cout << "Temp: " << static_cast<float>(temperature) << "\n";

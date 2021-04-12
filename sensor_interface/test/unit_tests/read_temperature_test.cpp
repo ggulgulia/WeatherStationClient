@@ -6,15 +6,6 @@ using namespace WS;
 using ::testing::AtLeast;
 using ::testing::Return;
 
-TEST(SensorTest, check_temperature) {
-  TemperatureScaleMock temperatureScaleMock;
-  EXPECT_CALL(temperatureScaleMock, getValue());              
-  //temperatureSensorMock.check_temperature();
-  TemperatureSensor sensor(&temperatureScaleMock); 
-  sensor.check_temperature();
-}
-
-
 
 class ReadTemperature : public testing::Test {
 public:
@@ -31,19 +22,43 @@ public:
     }
 };
 
-TEST_F(ReadTemperature, check_is_on)
-{
-    temp_sensor_->update_sensor_power_status();
-    ASSERT_EQ(temp_sensor_->is_on(), state::on);
+TEST(SensorTest, checkCallToUpdateValue) {
+  std::unique_ptr<TemperatureScaleMock> temperatureScaleMock = std::make_unique<TemperatureScaleMock>();
+  EXPECT_CALL(*temperatureScaleMock, updateValue(27.55))
+  .Times(testing::AtLeast(1));              
+  TemperatureSensor sensor(std::move(temperatureScaleMock)); 
+  ASSERT_EQ(sensor.check_temperature("../test/unit_tests/TemperatureTest"), 0.0f);
 }
 
-TEST_F(ReadTemperature, check_current_temperature)
+TEST(SensorTest, checkCallToGetValue) {
+  std::unique_ptr<TemperatureScaleMock> temperatureScaleMock = std::make_unique<TemperatureScaleMock>();
+  EXPECT_CALL(*temperatureScaleMock, getValue())
+  .Times(testing::AtLeast(1))
+  .WillOnce(Return(27.55f));
+  TemperatureSensor sensor(std::move(temperatureScaleMock)); 
+  ASSERT_EQ(sensor.check_temperature("../test/unit_tests/TemperatureTest"),27.55f);
+}
+
+TEST_F(ReadTemperature, is_on_ReturnsOffStateAtStart)
 {
-    ASSERT_GT(temp_sensor_->check_temperature(), 0.0);
+    ASSERT_EQ(temp_sensor_->is_on(), state::off);
+}
+
+TEST_F(ReadTemperature, is_on_ReturnsUnknownStateWithWrongInputFile)
+{
+    temp_sensor_->update_sensor_power_status("some random file");
+    ASSERT_EQ(temp_sensor_->is_on(), state::unknown);
+}
+
+
+TEST_F(ReadTemperature, is_on_ReturnsOnStateWithDummyInputFile)
+{
+    temp_sensor_->update_sensor_power_status("../test/unit_tests/TemperaturePowerStatus");
+    ASSERT_EQ(temp_sensor_->is_on(), state::on);
 }
 
 int main(int argc, char** argv)
 {
-    testing::InitGoogleMock(&argc, argv);
+    testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
